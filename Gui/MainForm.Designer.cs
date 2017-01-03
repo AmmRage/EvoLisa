@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pnlCanvas = new GenArt.Canvas();
             this.picPattern = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
@@ -42,6 +41,7 @@
             this.dNAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dNAToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSavePic = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -49,6 +49,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.trackBarScale = new System.Windows.Forms.TrackBar();
+            this.pnlCanvas = new GenArt.Canvas();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelFitness = new System.Windows.Forms.ToolStripStatusLabel();
@@ -71,25 +72,15 @@
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnlCanvas
-            // 
-            this.pnlCanvas.BackColor = System.Drawing.Color.Black;
-            this.pnlCanvas.Location = new System.Drawing.Point(6, 16);
-            this.pnlCanvas.Name = "pnlCanvas";
-            this.pnlCanvas.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlCanvas.Size = new System.Drawing.Size(600, 600);
-            this.pnlCanvas.TabIndex = 1;
-            this.pnlCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
-            // 
             // picPattern
             // 
-            this.picPattern.Image = global::GenArt.Properties.Resources.ml1;
             this.picPattern.Location = new System.Drawing.Point(12, 16);
             this.picPattern.Name = "picPattern";
             this.picPattern.Size = new System.Drawing.Size(200, 200);
             this.picPattern.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picPattern.TabIndex = 3;
             this.picPattern.TabStop = false;
+            this.picPattern.Visible = false;
             // 
             // label1
             // 
@@ -140,7 +131,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
-            this.saveToolStripMenuItem});
+            this.saveToolStripMenuItem,
+            this.toolStripMenuItemSavePic});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -151,7 +143,7 @@
             this.sourceImageToolStripMenuItem,
             this.dNAToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // sourceImageToolStripMenuItem
@@ -173,7 +165,7 @@
             this.saveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dNAToolStripMenuItem1});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // dNAToolStripMenuItem1
@@ -182,6 +174,13 @@
             this.dNAToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
             this.dNAToolStripMenuItem1.Text = "DNA";
             this.dNAToolStripMenuItem1.Click += new System.EventHandler(this.dNAToolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItemSavePic
+            // 
+            this.toolStripMenuItemSavePic.Name = "toolStripMenuItemSavePic";
+            this.toolStripMenuItemSavePic.Size = new System.Drawing.Size(138, 22);
+            this.toolStripMenuItemSavePic.Text = "Save Picture";
+            this.toolStripMenuItemSavePic.Click += new System.EventHandler(this.toolStripMenuItemSavePic_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -263,6 +262,16 @@
             this.trackBarScale.TabIndex = 21;
             this.trackBarScale.Value = 3;
             this.trackBarScale.Scroll += new System.EventHandler(this.trackBarScale_Scroll);
+            // 
+            // pnlCanvas
+            // 
+            this.pnlCanvas.BackColor = System.Drawing.Color.Black;
+            this.pnlCanvas.Location = new System.Drawing.Point(6, 16);
+            this.pnlCanvas.Name = "pnlCanvas";
+            this.pnlCanvas.Padding = new System.Windows.Forms.Padding(5);
+            this.pnlCanvas.Size = new System.Drawing.Size(600, 600);
+            this.pnlCanvas.TabIndex = 1;
+            this.pnlCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
             // 
             // statusStrip1
             // 
@@ -429,6 +438,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSavePic;
     }
 }
 

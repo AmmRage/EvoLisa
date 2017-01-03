@@ -2,9 +2,10 @@
 {
     public class Settings
     {
-        public static int ActiveAddPointMutationRate = 1500;
-        public static int ActiveAddPolygonMutationRate = 700;
-        public static int ActiveAlphaMutationRate = 1500;
+        public static int ActiveAddPointMutationRate = 1500 / 100;
+        public static int ActiveAddPolygonMutationRate = 700 / 100;
+        public static int ActiveAlphaMutationRate = 1500 / 100;
+
         public static int ActiveAlphaRangeMax = 60;
         public static int ActiveAlphaRangeMin = 30;
         public static int ActiveBlueMutationRate = 1500;
@@ -23,13 +24,13 @@
         public static int ActivePointsMax = 1500;
         public static int ActivePointsMin;
         public static int ActivePointsPerPolygonMax = 10;
-        public static int ActivePointsPerPolygonMin = 3;
+        public static int ActivePointsPerPolygonMin = 3; //test
         public static int ActivePolygonsMax = 255;
         public static int ActivePolygonsMin;
         public static int ActiveRedMutationRate = 1500;
         public static int ActiveRedRangeMax = 255;
         public static int ActiveRedRangeMin;
-        public static int ActiveRemovePointMutationRate = 1500;
+        public static int ActiveRemovePointMutationRate = 1500 / 100;
         public static int ActiveRemovePolygonMutationRate = 1500;
         private int _addPointMutationRate = 1500;
 
@@ -145,7 +146,6 @@
         }
 
         //Ranges
-
         public int RedRangeMin
         {
             get { return this._redRangeMin; }

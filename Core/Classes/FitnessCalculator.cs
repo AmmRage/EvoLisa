@@ -10,30 +10,25 @@ namespace GenArt.Classes
         {
             double error = 0;
 
-            using (var b = new Bitmap(Tools.MaxWidth, Tools.MaxHeight, PixelFormat.Format24bppRgb))
-            using (var g = Graphics.FromImage(b))
+            using (var bmp = new Bitmap(Tools.MaxWidth, Tools.MaxHeight, PixelFormat.Format24bppRgb))
+            using (var g = Graphics.FromImage(bmp))
             {
                 Renderer.Render(newDrawing, g, 1);
-
-                var bmd1 = b.LockBits(new Rectangle(0, 0, Tools.MaxWidth, Tools.MaxHeight), ImageLockMode.ReadOnly,
-                                             PixelFormat.Format24bppRgb);
-
+                var bmpData = bmp.LockBits(new Rectangle(0, 0, Tools.MaxWidth, Tools.MaxHeight), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
 
                 for (var y = 0; y < Tools.MaxHeight; y++)
                 {
                     for (var x = 0; x < Tools.MaxWidth; x++)
                     {
-                        var c1 = GetPixel(bmd1, x, y);
+                        var c1 = GetPixel(bmpData, x, y);
                         var c2 = sourceColors[x, y];
 
                         var pixelError = GetColorFitness(c1, c2);
                         error += pixelError;
                     }
                 }
-
-                b.UnlockBits(bmd1);
+                bmp.UnlockBits(bmpData);
             }
-
             return error;
         }
 

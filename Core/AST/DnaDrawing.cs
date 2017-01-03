@@ -42,26 +42,28 @@ namespace GenArt.AST
 
         public DnaDrawing Clone()
         {
-            var drawing = new DnaDrawing();
-            drawing.Polygons = new List<DnaPolygon>();
+            var drawing = new DnaDrawing {Polygons = new List<DnaPolygon>()};
             foreach (var polygon in this.Polygons)
                 drawing.Polygons.Add(polygon.Clone());
-
             return drawing;
         }
 
-
         public void Mutate()
         {
+            //多边形列表变异
             if (Tools.WillMutate(Settings.ActiveAddPolygonMutationRate))
-                AddPolygon();
-
+            {
+                AddPolygon();//add a random sized and random location poligon
+            }
             if (Tools.WillMutate(Settings.ActiveRemovePolygonMutationRate))
-                RemovePolygon();
-
+            {
+                RemovePolygon();//remove a random polygon in the list
+            }
             if (Tools.WillMutate(Settings.ActiveMovePolygonMutationRate))
-                MovePolygon();
-
+            {
+                //MovePolygon();
+            }
+            //
             foreach (var polygon in this.Polygons)
                 polygon.Mutate(this);
         }
@@ -94,10 +96,11 @@ namespace GenArt.AST
             if (this.Polygons.Count < Settings.ActivePolygonsMax)
             {
                 var newPolygon = new DnaPolygon();
+                //add a random polygon to drawing polygon list
                 newPolygon.Init();
 
                 var index = Tools.GetRandomNumber(0, this.Polygons.Count);
-
+                //insert to a random position
                 this.Polygons.Insert(index, newPolygon);
                 SetDirty();
             }
