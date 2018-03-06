@@ -65,6 +65,7 @@
             this.toolStripStatusLabelAvgPoints = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picPattern)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -80,7 +81,6 @@
             this.picPattern.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picPattern.TabIndex = 3;
             this.picPattern.TabStop = false;
-            this.picPattern.Visible = false;
             // 
             // label1
             // 
@@ -123,7 +123,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1072, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(867, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -206,19 +206,19 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.picPattern);
             this.splitContainer1.Panel1.Controls.Add(this.label10);
             this.splitContainer1.Panel1.Controls.Add(this.label8);
             this.splitContainer1.Panel1.Controls.Add(this.label5);
             this.splitContainer1.Panel1.Controls.Add(this.trackBarScale);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.btnStart);
-            this.splitContainer1.Panel1.Controls.Add(this.picPattern);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.pnlCanvas);
-            this.splitContainer1.Size = new System.Drawing.Size(1072, 625);
+            this.splitContainer1.Size = new System.Drawing.Size(867, 625);
             this.splitContainer1.SplitterDistance = 230;
             this.splitContainer1.TabIndex = 21;
             // 
@@ -269,7 +269,7 @@
             this.pnlCanvas.Location = new System.Drawing.Point(6, 16);
             this.pnlCanvas.Name = "pnlCanvas";
             this.pnlCanvas.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlCanvas.Size = new System.Drawing.Size(600, 600);
+            this.pnlCanvas.Size = new System.Drawing.Size(606, 595);
             this.pnlCanvas.TabIndex = 1;
             this.pnlCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCanvas_Paint);
             // 
@@ -290,7 +290,7 @@
             this.toolStripStatusLabelAvgPoints});
             this.statusStrip1.Location = new System.Drawing.Point(0, 649);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1072, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(867, 22);
             this.statusStrip1.TabIndex = 26;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -306,7 +306,7 @@
             this.toolStripStatusLabelFitness.AutoSize = false;
             this.toolStripStatusLabelFitness.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripStatusLabelFitness.Name = "toolStripStatusLabelFitness";
-            this.toolStripStatusLabelFitness.Size = new System.Drawing.Size(141, 17);
+            this.toolStripStatusLabelFitness.Size = new System.Drawing.Size(100, 17);
             this.toolStripStatusLabelFitness.Spring = true;
             // 
             // toolStripStatusLabel2
@@ -319,7 +319,7 @@
             // 
             this.toolStripStatusLabelGeneration.AutoSize = false;
             this.toolStripStatusLabelGeneration.Name = "toolStripStatusLabelGeneration";
-            this.toolStripStatusLabelGeneration.Size = new System.Drawing.Size(141, 17);
+            this.toolStripStatusLabelGeneration.Size = new System.Drawing.Size(100, 17);
             this.toolStripStatusLabelGeneration.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -332,7 +332,7 @@
             // 
             this.toolStripStatusLabelSelected.AutoSize = false;
             this.toolStripStatusLabelSelected.Name = "toolStripStatusLabelSelected";
-            this.toolStripStatusLabelSelected.Size = new System.Drawing.Size(141, 17);
+            this.toolStripStatusLabelSelected.Size = new System.Drawing.Size(100, 17);
             this.toolStripStatusLabelSelected.Spring = true;
             // 
             // toolStripStatusLabel4
@@ -345,7 +345,7 @@
             // 
             this.toolStripStatusLabelPoints.AutoSize = false;
             this.toolStripStatusLabelPoints.Name = "toolStripStatusLabelPoints";
-            this.toolStripStatusLabelPoints.Size = new System.Drawing.Size(141, 17);
+            this.toolStripStatusLabelPoints.Size = new System.Drawing.Size(100, 17);
             this.toolStripStatusLabelPoints.Spring = true;
             // 
             // toolStripStatusLabel5
@@ -358,7 +358,7 @@
             // 
             this.toolStripStatusLabelPolygons.AutoSize = false;
             this.toolStripStatusLabelPolygons.Name = "toolStripStatusLabelPolygons";
-            this.toolStripStatusLabelPolygons.Size = new System.Drawing.Size(141, 17);
+            this.toolStripStatusLabelPolygons.Size = new System.Drawing.Size(100, 17);
             this.toolStripStatusLabelPolygons.Spring = true;
             // 
             // toolStripStatusLabel6
@@ -378,7 +378,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 671);
+            this.ClientSize = new System.Drawing.Size(867, 671);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -394,6 +394,7 @@
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarScale)).EndInit();
             this.statusStrip1.ResumeLayout(false);

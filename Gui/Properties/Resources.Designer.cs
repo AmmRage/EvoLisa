@@ -39,7 +39,7 @@ namespace GenArt.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    var temp = new global::System.Resources.ResourceManager("GenArt.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GenArt.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,7 +65,7 @@ namespace GenArt.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap ml1 {
             get {
-                var obj = ResourceManager.GetObject("ml1", resourceCulture);
+                object obj = ResourceManager.GetObject("ml1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

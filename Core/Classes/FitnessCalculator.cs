@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using GenArt.AST;
+using System.Linq;
 
 namespace GenArt.Classes
 {
@@ -26,6 +28,30 @@ namespace GenArt.Classes
                         var pixelError = GetColorFitness(c1, c2);
                         error += pixelError;
                     }
+                }
+                bmp.UnlockBits(bmpData);
+            }
+            return error;
+        }
+
+        public static double GetDrawingFitness(DnaDrawing newDrawing, byte[] sourceByteContent, double lastError)
+        {
+            double error = 0;
+
+            using (var bmp = new Bitmap(Tools.MaxWidth, Tools.MaxHeight, PixelFormat.Format24bppRgb))
+            using (var g = Graphics.FromImage(bmp))
+            {
+                Renderer.Render(newDrawing, g, 1);
+                var bmpData = bmp.LockBits(new Rectangle(0, 0, Tools.MaxWidth, Tools.MaxHeight), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+
+                var bytes = new byte[sourceByteContent.Length];
+                Marshal.Copy(bmpData.Scan0, bytes, 0, bytes.Length);
+
+                for (var i = 0; i < sourceByteContent.Length; i++)
+                {
+                    error += (sourceByteContent[i] - bytes[i])*(sourceByteContent[i] - bytes[i]);
+                    //if (error > lastError)
+                    //    return double.MaxValue;
                 }
                 bmp.UnlockBits(bmpData);
             }

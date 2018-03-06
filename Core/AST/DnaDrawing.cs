@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 using GenArt.Classes;
 using System;
+using System.Linq;
 
 namespace GenArt.AST
 {
@@ -17,11 +18,7 @@ namespace GenArt.AST
         {
             get
             {
-                var pointCount = 0;
-                foreach (var polygon in this.Polygons)
-                    pointCount += polygon.Points.Count;
-
-                return pointCount;
+                return this.Polygons.Sum(polygon => polygon.Points.Count);
             }
         }
 
@@ -61,7 +58,7 @@ namespace GenArt.AST
             }
             if (Tools.WillMutate(Settings.ActiveMovePolygonMutationRate))
             {
-                //MovePolygon();
+                MovePolygon();
             }
             //
             foreach (var polygon in this.Polygons)

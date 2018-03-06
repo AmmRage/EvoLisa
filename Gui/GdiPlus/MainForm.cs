@@ -3,10 +3,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using GenArt.AST;
 using GenArt.Classes;
+using GenArt.Properties;
+using Settings = GenArt.Classes.Settings;
 
 namespace GenArt
 {
@@ -27,6 +30,9 @@ namespace GenArt
         private int _selected;
         private SettingsForm _settingsForm;
         private Color[,] _sourceColors;
+        private int pixelCounts;
+
+        private byte[] _sourceImageContent;
 
         private Thread _thread;
         #endregion
@@ -45,9 +51,9 @@ namespace GenArt
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.picPattern.Image = Image.FromFile(@"C:\Users\ZhiYong\Pictures\pr\925681127.jpg");
-            Tools.MaxHeight = this.picPattern.Height;
-            Tools.MaxWidth = this.picPattern.Width;
+            this.picPattern.Image = Resources.ml1; 
+            Tools.MaxHeight = this.picPattern.Image.Height;
+            Tools.MaxWidth = this.picPattern.Image.Width;
             SetCanvasSize();
             this.splitContainer1.SplitterDistance = this.picPattern.Width + 30;
         }
@@ -86,7 +92,7 @@ namespace GenArt
             if (polygons != 0)
                 avg = points/polygons;
 
-            this.toolStripStatusLabelFitness.Text = this._errorLevel.ToString();
+            this.toolStripStatusLabelFitness.Text = ((int)(this._errorLevel / pixelCounts)).ToString().Substring(0);
             this.toolStripStatusLabelGeneration.Text = this._generation.ToString();
             this.toolStripStatusLabelSelected.Text = this._selected.ToString();
             this.toolStripStatusLabelPoints.Text = points.ToString();
@@ -181,6 +187,13 @@ namespace GenArt
                     this._sourceColors[x, y] = c;
                 }
             }
+
+            pixelCounts = sourceImage.Width*sourceImage.Height;
+            var bmpdata = sourceImage.LockBits(new Rectangle(0, 0, sourceImage.Width, sourceImage.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            var len = sourceImage.Width * sourceImage.Height * 3;
+            this._sourceImageContent = new byte[len];
+            Marshal.Copy(bmpdata.Scan0, _sourceImageContent, 0, len);
+            sourceImage.UnlockBits(bmpdata);
         }
 
         private void StartEvolution()
@@ -192,6 +205,8 @@ namespace GenArt
             this._lastSelected = 0;
 
             Trace.WriteLine("Processing");
+
+            var currentTicks = 0;
             while (this._isRunning)
             {
                 DnaDrawing newDrawing;
@@ -201,22 +216,19 @@ namespace GenArt
                 }
                 newDrawing.Mutate(); //Mutate, 突变
 
-                if (newDrawing.IsDirty)
+                if (!newDrawing.IsDirty) continue;
+                this._generation++;
+
+                //var newErrorLevel = FitnessCalculator.GetDrawingFitness(newDrawing, this._sourceColors);
+                var newErrorLevel = FitnessCalculator.GetDrawingFitness(newDrawing, this._sourceImageContent, this._errorLevel);
+
+                if (newErrorLevel > this._errorLevel) continue;
+                this._selected++;
+                lock (this._currentDrawing)
                 {
-                    this._generation++;
-
-                    var newErrorLevel = FitnessCalculator.GetDrawingFitness(newDrawing, this._sourceColors);
-
-                    if (newErrorLevel <= this._errorLevel)
-                    {
-                        this._selected++;
-                        lock (this._currentDrawing)
-                        {
-                            this._currentDrawing = newDrawing;
-                        }
-                        this._errorLevel = newErrorLevel;
-                    }
+                    this._currentDrawing = newDrawing;
                 }
+                this._errorLevel = newErrorLevel;
                 //else, discard new drawing
             }
         }
@@ -337,6 +349,11 @@ namespace GenArt
             {
                 MessageBox.Show(ex.ToString(), "Error");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
